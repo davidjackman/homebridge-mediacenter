@@ -1,0 +1,16 @@
+{
+  "bridge": {
+    "name": "Media",
+    "username": "CC:23:3D:E3:CE:30",
+    "port": 51827,
+    "pin": "091-26-174"
+  },
+  "description": "",
+  "accessories": [
+    {
+      "accessory" : "Bravia",
+      "name" : "Bravia"
+    }
+  ],
+  "platforms": []
+}
