@@ -106,6 +106,11 @@ class MediaCenter {
     this.log("This thing wants:", state);
 
     lirc.send("TV", "KEY_POWER");
+	lirc.send("Cable", "KEY_POWER");
+    lirc.send("TV", "KEY_SWITCHVIDEOMODE");
+    setTimeout(function() {
+      lirc.send("TV", "KEY_SWITCHVIDEOMODE");
+    }, 400);
     return next(null);
   }
 };
