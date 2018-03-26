@@ -1,15 +1,15 @@
 {
   "bridge": {
-    "name": "Media",
+    "name": "HomeMedia",
     "username": "CC:23:3D:E3:CE:30",
     "port": 51827,
-    "pin": "091-26-174"
+    "pin": "099-26-124"
   },
-  "description": "",
+  "description": "Media Center for Me",
   "accessories": [
     {
-      "accessory" : "Bravia",
-      "name" : "Bravia"
+      "accessory" : "Media",
+      "name" : "TV"
     }
   ],
   "platforms": []

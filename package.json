@@ -1,6 +1,6 @@
 {
-  "name": "homebridge-mediacenter",
-  "version": "0.1.0",
+  "name": "homebridge-media",
+  "version": "0.0.1",
   "description": "Control For All Those Media Center Items",
   "main": "index.js",
   "scripts": {

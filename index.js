@@ -7,13 +7,13 @@
 var Service, Characteristic;
 const lirc = require('node-lirc');
 
-const ON  = true;
-const OFF = false;
+// const ON  = true;
+// const OFF = false;
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
-  homebridge.registerAccessory("homebridge-mediacenter", "MediaCenter", MediaCenter);
+  homebridge.registerAccessory("homebridge-media", "Media", Media);
 }
 
 class MediaCenter {
@@ -28,8 +28,8 @@ class MediaCenter {
     let informationService = new Service.AccessoryInformation();
     informationService
       .setCharacteristic(Characteristic.Manufacturer, "David Jackman")
-      .setCharacteristic(Characteristic.Model, "MediaCenter")
-      .setCharacteristic(Characteristic.SerialNumber, "000-000-002");
+      .setCharacteristic(Characteristic.Model, "Media Center")
+      .setCharacteristic(Characteristic.SerialNumber, "000-000-003");
   
     let tvService = new Service.Switch("TV");
     tvService.subtype = "Bravia";
@@ -82,7 +82,7 @@ class MediaCenter {
   setTVOnCharacteristic(state, next) {
     this.tvState = state;
 
-    if state === ON {
+    if state === true {
       lirc.send("TV", "KEY_POWER");
       lirc.send("Cable", "KEY_POWER");
 	  setTimeout(function() {
