@@ -1,5 +1,14 @@
+// So far this is just an exploration into the interaction of the homebridge and homekit.
+// I hope this will continue, but solving the issings with non-discrete power control
+// isnt exactly my passion. I do however have some ideas that i can add to the raspberri
+// to get the state of the tv directly from the world. either by reading some draw from 
+// the device or by reading thr light or sound levels. 
+
 var Service, Characteristic;
 const lirc = require('node-lirc');
+
+const ON  = true;
+const OFF = false;
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -57,10 +66,6 @@ class MediaCenter {
     return next(null, false);
   }
 
-  getTVSourceCableCharacteristic(next) {
-    return next(null, false);
-  }
-
   setTVSourceCharacteristic(state, next) {
     lirc.send("TV", "KEY_SWITCHVIDEOMODE");
     setTimeout(function() {
@@ -69,49 +74,38 @@ class MediaCenter {
     return next(null);
   }
 
-  setTVSourceCableCharacteristic(state, next) {
-    lirc.send("TV", "KEY_SWITCHVIDEOMODE");
-    setTimeout(function() {
-      lirc.send("TV", "KEY_SWITCHVIDEOMODE");
-    }, 400);
-    setTimeout(function() {
-      lirc.send("TV", "KEY_SWITCHVIDEOMODE");
-    }, 800);
-    setTimeout(function() {
-      lirc.send("TV", "KEY_SWITCHVIDEOMODE");
-    }, 1200);
-    setTimeout(function() {
-      lirc.send("TV", "KEY_SWITCHVIDEOMODE");
-    }, 1600);
-    return next(null);
-  }
-
   getTVOnCharacteristic(next) {
     this.log("Current TV State: ", !this.tvState);
     return next(null, !this.tvState);
   }
 
+  setTVOnCharacteristic(state, next) {
+    this.tvState = state;
+
+    if state === ON {
+      lirc.send("TV", "KEY_POWER");
+      lirc.send("Cable", "KEY_POWER");
+	  setTimeout(function() {
+        lirc.send("TV", "KEY_SWITCHVIDEOMODE");
+        setTimeout(function() {
+          lirc.send("TV", "KEY_SWITCHVIDEOMODE");
+        }, 400);
+	  }, 2000)
+    }
+	
+    return next(null);
+  }
+  
   getCableOnCharacteristic(next) {
     return next(null, !this.cableState);
   }
 
   setCableOnCharacteristic(state, next) {
+    
     this.cableState = !state;
     lirc.send("Cable", "KEY_POWER");
     return next(null);
   }
-
-  setTVOnCharacteristic(state, next) {
-    this.tvState = !state;
-    this.log("This thing wants:", state);
-
-    lirc.send("TV", "KEY_POWER");
-	lirc.send("Cable", "KEY_POWER");
-    lirc.send("TV", "KEY_SWITCHVIDEOMODE");
-    setTimeout(function() {
-      lirc.send("TV", "KEY_SWITCHVIDEOMODE");
-    }, 400);
-    return next(null);
-  }
+  
 };
 
