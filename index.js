@@ -89,6 +89,17 @@ class Media {
       this.discoveryService = discoveryService;
   }
 
+  configureNickelodeonService() {
+      let NickelodeonService = new Service.Switch("Nickelodeon");
+      NickelodeonService.subtype = "Nickelodeon"
+      NickelodeonService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToNickelodeon.bind(this))
+          .on('get', this.isThisOnNickelodeon.bind(this));
+
+      this.NickelodeonService = NickelodeonService;
+  }
+
   getServices() {
     this.configureInformationServices();
 	this.configureTVService();
@@ -96,10 +107,22 @@ class Media {
     this.configureSourceService();
     this.configureAnimalPlanetService();
 	this.configureDiscoveryService();
+	this.configureNickelodeonService();
   
     return [this.informationService, this.tvService, this.cableService, this.sourceService, this.animalPlanetService, this.discoveryService];
   }
 
+  isThisOnNickelodeon(next) {
+    return this.channel === "Nickelodeon";
+  }
+  
+  changeToNickelodeon(s, next) {
+    this.channel = "Nickelodeon";
+    lirc.send("Cable", "KEY_3");  
+    lirc.send("Cable", "KEY_1");
+    return next(null);
+  }
+  
   isThisOnDiscovery(next) {
     return this.channel === "Discovery";
   }
