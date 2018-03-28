@@ -255,14 +255,14 @@ class Media {
   }
   
   changeToChannel(channel) {
-    let char = channel.charAt(0);
-    if (char != null) {
-      sendKeyForLetter(char);
-    }
-    setTimeout(function() {
-		let substring = channel.substr(1);
-		changeToChannel(substring);
-	}, 200);
+	//     let char = channel.charAt(0);
+	//     if (char != null) {
+	//       sendKeyForLetter(char);
+	//     }
+	//     setTimeout(function() {
+	// 	let substring = channel.substr(1);
+	// 	changeToChannel(substring);
+	// }, 200);
   }
   
   isThisOnHDE(next) {
@@ -271,6 +271,7 @@ class Media {
   
   changeToHDE(s, next) {
     this.channel = "HDE";
+	console.log("Changing Channel to 1351");
 	changeToChannel("1351");
     return next(null);
   }
