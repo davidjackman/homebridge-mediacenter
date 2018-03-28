@@ -188,12 +188,21 @@ class Media {
     return this.channel === "HDE";
   }
   
+  changeToChannel(channel) {
+    let char = channel.charAt(0);
+    if (char != null) {
+      sendKeyForLetter(char);
+    }
+	changeToChannel(channel.substr(1));
+  }
+  
   changeToHDE(s, next) {
     this.channel = "HDE";
-    lirc.send("Cable", "KEY_1");  
-    lirc.send("Cable", "KEY_3");
-    lirc.send("Cable", "KEY_5");  
-    lirc.send("Cable", "KEY_1");
+	changeToChannel("1351");
+    // lirc.send("Cable", "KEY_1");
+    // lirc.send("Cable", "KEY_3");
+    // lirc.send("Cable", "KEY_5");
+    // lirc.send("Cable", "KEY_1");
     return next(null);
   }
   
