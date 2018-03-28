@@ -258,6 +258,7 @@ class Media {
   
   changeToChannel(channel) {
     while (channel.length > 0) {
+      console.log("channel" + channel);
       setTimeout(function() {
         let char = channel.charAt(0);
         if (char != null) {
