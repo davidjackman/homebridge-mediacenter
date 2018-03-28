@@ -272,7 +272,7 @@ class Media {
   changeToHDE(s, next) {
     this.channel = "HDE";
 	console.log("Changing Channel to 1351");
-	changeToChannel("1351");
+	this.changeToChannel("1351");
     return next(null);
   }
   
