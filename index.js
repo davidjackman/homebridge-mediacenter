@@ -24,7 +24,7 @@ class Media {
     this.cableState = false;
   }
   
-  function configureInformationServices() {
+  functionconfigureInformationServices() {
       let informationService = new Service.AccessoryInformation();
       informationService
         .setCharacteristic(Characteristic.Manufacturer, "David Jackman")
@@ -34,7 +34,7 @@ class Media {
       this.informationService = informationService;
   }
   
-  function configureTVService() {
+  configureTVService() {
       let tvService = new Service.Switch("TV");
       tvService.subtype = "Bravia";
       tvService
@@ -45,7 +45,7 @@ class Media {
       this.tvService = tvService;
   }
 
-  function configureCableService() {
+  configureCableService() {
       let cableService = new Service.Switch("Cable");
       cableService.subtype = "Cable";
       cableService
@@ -56,7 +56,7 @@ class Media {
       this.cableService = cableService;
   }
   
-  function configureSourceService() {
+  configureSourceService() {
       let sourceService = new Service.Switch("Source");
       sourceService.subtype = "TV";
       sourceService
@@ -67,7 +67,7 @@ class Media {
       this.sourceService = sourceService;
   }
   
-  function configureAnimalPlanetService() {
+  configureAnimalPlanetService() {
       let animalPlanetService = new Service.Switch("Animal Planet");
       animalPlanetService.subtype = "AnimalPlanet"
       animalPlanetService
@@ -78,7 +78,7 @@ class Media {
       this.animalPlanetService = animalPlanetService;
   }
   
-  function configureDiscoveryService() {
+  configureDiscoveryService() {
       let discoveryService = new Service.Switch("Discovery");
       discoveryService.subtype = "Discovery"
       discoveryService
@@ -90,12 +90,12 @@ class Media {
   }
 
   getServices() {
-    configureInformationServices();
-	configureTVService();
-	configureCableService();
-    configureSourceService();
-    configureAnimalPlanetService();
-	configureDiscoveryService();
+    this.configureInformationServices();
+	this.configureTVService();
+	this.configureCableService();
+    this.configureSourceService();
+    this.configureAnimalPlanetService();
+	this.configureDiscoveryService();
   
     return [this.informationService, this.tvService, this.cableService, this.sourceService, this.animalPlanetService, this.discoveryService];
   }
