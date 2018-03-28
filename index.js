@@ -90,7 +90,7 @@ class Media {
   }
 
   configureNickelodeonService() {
-      let nickelodeonService = new Service.Switch("Nickelodeon");
+      let nickelodeonService = new Service.Switch("Nickle oh deaan");
       nickelodeonService.subtype = "Nickelodeon"
       nickelodeonService
         .getCharacteristic(Characteristic.On)
@@ -101,7 +101,7 @@ class Media {
   }
 
   configureNickJuniorService() {
-      let nickJuniorService = new Service.Switch("Nick Junior");
+      let nickJuniorService = new Service.Switch("Nick junior");
       nickJuniorService.subtype = "Nick Junior"
       nickJuniorService
         .getCharacteristic(Characteristic.On)
