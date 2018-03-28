@@ -144,6 +144,17 @@ class Media {
 
       this.comedyService = comedyService;
   }
+  
+  configureHDEService() {
+      let HDEService = new Service.Switch("HDE");
+      HDEService.subtype = "HDE"
+      HDEService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToHDE.bind(this))
+          .on('get', this.isThisOnHDE.bind(this));
+
+      this.HDEService = HDEService;
+  }
 
   getServices() {
     this.configureInformationServices();
@@ -157,6 +168,7 @@ class Media {
 	this.configureComedyService();
 	this.configureEService();
 	this.configureFoxService();
+	this.configureHDEService();
   
     return [this.informationService, 
 		this.tvService,
@@ -168,9 +180,23 @@ class Media {
 		this.nickJuniorService,
 	    this.comedyService,
 		this.eService,
-	    this.foxService];
+	    this.foxService,
+	    this.HDEService];
   }
 
+  isThisOnHDE(next) {
+    return this.channel === "HDE";
+  }
+  
+  changeToHDE(s, next) {
+    this.channel = "HDE";
+    lirc.send("Cable", "KEY_1");  
+    lirc.send("Cable", "KEY_3");
+    lirc.send("Cable", "KEY_5");  
+    lirc.send("Cable", "KEY_1");
+    return next(null);
+  }
+  
   isThisOnComedy(next) {
     return this.channel === "Comedy";
   }
