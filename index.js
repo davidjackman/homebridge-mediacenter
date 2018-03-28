@@ -254,7 +254,7 @@ class Media {
     } 
   }
   
-  function changeToChannel(channel) {
+  changeToChannel(channel) {
     let char = channel.charAt(0);
     if (char != null) {
       sendKeyForLetter(char);
