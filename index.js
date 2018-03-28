@@ -23,62 +23,81 @@ class Media {
     this.tvState = false;
     this.cableState = false;
   }
+  
+  configureInformationServices() {
+      let informationService = new Service.AccessoryInformation();
+      informationService
+        .setCharacteristic(Characteristic.Manufacturer, "David Jackman")
+        .setCharacteristic(Characteristic.Model, "Media")
+        .setCharacteristic(Characteristic.SerialNumber, "000-000-003");
+  
+      this.informationService = informationService;
+  }
+  
+  configureTVService() {
+      let tvService = new Service.Switch("TV");
+      tvService.subtype = "Bravia";
+      tvService
+        .getCharacteristic(Characteristic.On)
+          .on('get', this.getTVOnCharacteristic.bind(this))
+          .on('set', this.setTVOnCharacteristic.bind(this));
+    
+      this.tvService = tvService;
+  }
+
+  configureCableService() {
+      let cableService = new Service.Switch("Cable");
+      cableService.subtype = "Cable";
+      cableService
+        .getCharacteristic(Characteristic.On)
+          .on('get', this.getCableOnCharacteristic.bind(this))
+          .on('set', this.setCableOnCharacteristic.bind(this));
+
+      this.cableService = cableService;
+  }
+  
+  configureSourceService() {
+      let sourceService = new Service.Switch("Source");
+      sourceService.subtype = "TV";
+      sourceService
+        .getCharacteristic(Characteristic.On)
+          .on('get', this.getTVSourceCharacteristic.bind(this))
+          .on('set', this.setTVSourceCharacteristic.bind(this));
+
+      this.sourceService = sourceService;
+  }
+  
+  configureAnimalPlanetService() {
+      let animalPlanetService = new Service.Switch("Animal Planet");
+      animalPlanetService.subtype = "AnimalPlanet"
+      animalPlanetService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToAnimalPlanet.bind(this))
+          .on('get', this.isThisOnAnimalPlanet.bind(this));
+
+      this.animalPlanetService = animalPlanetService;
+  }
+  
+  configureDiscoveryService() {
+      let discoveryService = new Service.Switch("Discovery");
+      discoveryService.subtype = "Discovery"
+      discoveryService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToDiscovery.bind(this))
+          .on('get', this.isThisOnDiscovery.bind(this));
+
+      this.discoveryService = discoveryService;
+  }
 
   getServices() {
-    let informationService = new Service.AccessoryInformation();
-    informationService
-      .setCharacteristic(Characteristic.Manufacturer, "David Jackman")
-      .setCharacteristic(Characteristic.Model, "Media")
-      .setCharacteristic(Characteristic.SerialNumber, "000-000-003");
+    configureInformationServices();
+	configureTVService();
+	configureCableService();
+    configureSourceService();
+    configureAnimalPlanetService();
+	configureDiscoveryService();
   
-    let tvService = new Service.Switch("TV");
-    tvService.subtype = "Bravia";
-    tvService
-      .getCharacteristic(Characteristic.On)
-        .on('get', this.getTVOnCharacteristic.bind(this))
-        .on('set', this.setTVOnCharacteristic.bind(this));
-    
-    this.informationService = informationService;
-    this.tvService = tvService;
-
-    let cableService = new Service.Switch("Cable");
-    cableService.subtype = "Cable";
-    cableService
-      .getCharacteristic(Characteristic.On)
-        .on('get', this.getCableOnCharacteristic.bind(this))
-        .on('set', this.setCableOnCharacteristic.bind(this));
-
-    this.cableService = cableService;
-
-    let sourceService = new Service.Switch("Source");
-    sourceService.subtype = "TV";
-    sourceService
-      .getCharacteristic(Characteristic.On)
-        .on('get', this.getTVSourceCharacteristic.bind(this))
-        .on('set', this.setTVSourceCharacteristic.bind(this));
-
-    this.sourceService = sourceService;
-
-    let animalPlanetService = new Service.Switch("Animal Planet");
-    animalPlanetService.subtype = "AnimalPlanet"
-    animalPlanetService
-      .getCharacteristic(Characteristic.On)
-        .on('set', this.changeToAnimalPlanet.bind(this))
-        .on('get', this.isThisOnAnimalPlanet.bind(this));
-
-    this.animalPlanetService = animalPlanetService;
-  
-    let discoveryService = new Service.Switch("Discovery");
-    discoveryService.subtype = "Discovery"
-    discoveryService
-      .getCharacteristic(Characteristic.On)
-        .on('set', this.changeToDiscovery.bind(this))
-        .on('get', this.isThisOnDiscovery.bind(this));
-
-    this.discoveryService = discoveryService;
-  
-  
-    return [informationService, tvService, cableService, sourceService, animalPlanetService, discoveryService];
+    return [this.informationService, this.tvService, this.cableService, this.sourceService, this.animalPlanetService, this.discoveryService];
   }
 
   isThisOnDiscovery(next) {
