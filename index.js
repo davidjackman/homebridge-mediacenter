@@ -255,14 +255,14 @@ class Media {
   }
   
   changeToChannel(channel) {
-	//     let char = channel.charAt(0);
-	//     if (char != null) {
-	//       sendKeyForLetter(char);
-	//     }
-	//     setTimeout(function() {
-	// 	let substring = channel.substr(1);
-	// 	changeToChannel(substring);
-	// }, 200);
+    let char = channel.charAt(0);
+    if (char != null) {
+      //this.sendKeyForLetter(char);
+    }
+    setTimeout(function() {
+	let substring = channel.substr(1);
+      this.changeToChannel(substring);
+	}, 200);
   }
   
   isThisOnHDE(next) {
