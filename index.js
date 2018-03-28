@@ -221,7 +221,7 @@ class Media {
   }
   
   isThisOnSourceTV(next) {
-    return next(null, this.source === "TVSource");
+    return next(null, (this.source === "TVSource"));
   }
   
   changeToSourceTV(s, next) {
