@@ -167,6 +167,17 @@ class Media {
       this.SourceTVService = SourceTVService;
   }
 
+  configureSourceAppleService() {
+      let SourceAppleService = new Service.Switch("SourceApple");
+      SourceAppleService.subtype = "SourceAppleTV"
+      SourceAppleService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToSourceApple.bind(this))
+          .on('get', this.isThisOnSourceApple.bind(this));
+
+      this.SourceAppleService = SourceAppleService;
+  }
+
   getServices() {
     this.configureInformationServices();
 	this.configureTVService();
@@ -193,11 +204,28 @@ class Media {
 	    this.comedyService,
 		this.eService,
 	    this.foxService,
-	    this.HDEService];
+	    this.HDEService,
+	    this.SourceTVService];
   }
 
-  isThisOnHDE(next) {
-    return this.channel === "HDE";
+  isThisOnSourceApple(next) {
+    return this.source === "SourceApple";
+  }
+  
+  changeToSourceApple(s, next) {
+    this.source = "SourceApple";
+    lirc.send("Source", "KEY_2");  
+    return next(null);
+  }
+  
+  isThisOnTVSource(next) {
+    return this.source === "TVSource";
+  }
+  
+  changeToTVSource(s, next) {
+    this.source = "TVSource";
+    lirc.send("Source", "KEY_1");  
+    return next(null);
   }
   
   sendKeyForLetter(char) {
@@ -232,6 +260,10 @@ class Media {
     setTimeout(function() {
 		this.changeToChannel(channel.substr(1));
 	}, 200);
+  }
+  
+  isThisOnHDE(next) {
+    return this.channel === "HDE";
   }
   
   changeToHDE(s, next) {
