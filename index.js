@@ -259,13 +259,13 @@ class Media {
   changeToChannel(channel) {
     while (channel.length > 0) {
       console.log("channel" + channel);
-      setTimeout(function() {
+      // setTimeout(function() {
         let char = channel.charAt(0);
         if (char != null) {
           this.sendKeyForLetter(char);
         }
   	    channel = channel.substr(1);
-      }, 200);
+      // }, 200);
     }
   }
   
