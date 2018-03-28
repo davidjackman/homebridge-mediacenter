@@ -16,7 +16,7 @@ module.exports = function(homebridge) {
   homebridge.registerAccessory("homebridge-media", "Media", Media);
 }
 
-class MediaCenter {
+class Media {
 
   constructor(log, config) {
     this.log = log;
@@ -28,7 +28,7 @@ class MediaCenter {
     let informationService = new Service.AccessoryInformation();
     informationService
       .setCharacteristic(Characteristic.Manufacturer, "David Jackman")
-      .setCharacteristic(Characteristic.Model, "Media Center")
+      .setCharacteristic(Characteristic.Model, "Media")
       .setCharacteristic(Characteristic.SerialNumber, "000-000-003");
   
     let tvService = new Service.Switch("TV");
