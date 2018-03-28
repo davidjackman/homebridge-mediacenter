@@ -48,7 +48,7 @@ class MediaCenter {
         .on('get', this.getCableOnCharacteristic.bind(this))
         .on('set', this.setCableOnCharacteristic.bind(this));
 
-    this.cableService = cableService
+    this.cableService = cableService;
 
     let sourceService = new Service.Switch("Source");
     sourceService.subtype = "TV";
@@ -57,11 +57,41 @@ class MediaCenter {
         .on('get', this.getTVSourceCharacteristic.bind(this))
         .on('set', this.setTVSourceCharacteristic.bind(this));
 
-    this.sourceService = sourceService
+    this.sourceService = sourceService;
 
-    return [informationService, tvService, cableService, sourceService];
+    let animalPlanetService = new Service.Switch("Animal Planet");
+    animalPlanetService.subtype = "AnimalPlanet"
+    animalPlanetService
+      .getCharacteristic(Characteristic.On)
+        .on('set', this.changeToAnimalPlanet.bind(this))
+        .on('get', this.isThisOnAnimalPlanet.bind(this));
+
+    this.animalPlanetService = animalPlanetService;
+  
+    return [informationService, tvService, cableService, sourceService, animalPlanetService];
   }
 
+  isThisOnAnimalPlanet(next) {
+    return this.channel === "Animal Planet";
+  }
+  
+  changeToAnimalPlanet(s, next) {
+    this.channel = "Animal Planet";
+    lirc.send("Cable", "KEY_1");  
+    lirc.send("Cable", "KEY_0");
+    return next(null);
+  }
+  
+  changeToChannelByName(channel, next) {
+    if (channel === "RED") {
+      lirc.send("Cable", "KEY_1");
+    }  
+  }
+   
+  currentChannelName(next) {
+    return next(null, this.channel);
+  }
+  
   getTVSourceCharacteristic(next) {
     return next(null, false);
   }
@@ -82,17 +112,18 @@ class MediaCenter {
   setTVOnCharacteristic(state, next) {
     this.tvState = state;
 
-    if state === true {
-      lirc.send("TV", "KEY_POWER");
-      lirc.send("Cable", "KEY_POWER");
-	  setTimeout(function() {
+    lirc.send("TV", "KEY_POWER");
+    lirc.send("Cable", "KEY_POWER");
+
+    if (state) {
+      setTimeout(function() {
         lirc.send("TV", "KEY_SWITCHVIDEOMODE");
         setTimeout(function() {
           lirc.send("TV", "KEY_SWITCHVIDEOMODE");
         }, 400);
-	  }, 2000)
+      }, 2000)
     }
-	
+  
     return next(null);
   }
   

@@ -13,9 +13,9 @@
     "node": ">=0.12.0",
     "homebridge": ">=0.2.0"
   },
-  "repository" : {
-	  "type" : "git",
-	  "url" : "https://github.com/davidjackman/homebridge-mediacenter.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidjackman/homebridge-mediacenter.git"
   },
   "author": "David Jackman",
   "license": "ISC",
