@@ -155,6 +155,17 @@ class Media {
 
       this.HDEService = HDEService;
   }
+  
+  configureSourceTVService() {
+      let SourceTVService = new Service.Switch("SourceTV");
+      SourceTVService.subtype = "SourceTV"
+      SourceTVService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToSourceTV.bind(this))
+          .on('get', this.isThisOnSourceTV.bind(this));
+
+      this.SourceTVService = SourceTVService;
+  }
 
   getServices() {
     this.configureInformationServices();
@@ -169,6 +180,7 @@ class Media {
 	this.configureEService();
 	this.configureFoxService();
 	this.configureHDEService();
+	this.configureSourceTVService();
   
     return [this.informationService, 
 		this.tvService,
@@ -188,12 +200,38 @@ class Media {
     return this.channel === "HDE";
   }
   
+  sendKeyForLetter(char) {
+    if (char === '0') {
+      lirc.send("Cable", "KEY_0");
+    } else if (char === '1') {
+      lirc.send("Cable", "KEY_1");
+    } else if (char === '2') {
+      lirc.send("Cable", "KEY_2");
+    } else if (char === '3') {
+      lirc.send("Cable", "KEY_3");
+    } else if (char === '4') {
+      lirc.send("Cable", "KEY_4");
+    } else if (char === '5') {
+      lirc.send("Cable", "KEY_5");
+    } else if (char === '6') {
+      lirc.send("Cable", "KEY_6");
+    } else if (char === '7') {
+      lirc.send("Cable", "KEY_7");
+    } else if (char === '8') {
+      lirc.send("Cable", "KEY_8");
+    } else if (char === '9') {
+      lirc.send("Cable", "KEY_9");
+    } 
+  }
+  
   changeToChannel(channel) {
     let char = channel.charAt(0);
     if (char != null) {
-      sendKeyForLetter(char);
+      this.sendKeyForLetter(char);
     }
-	changeToChannel(channel.substr(1));
+    setTimeout(function() {
+		this.changeToChannel(channel.substr(1));
+	}, 200);
   }
   
   changeToHDE(s, next) {
