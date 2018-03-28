@@ -192,6 +192,7 @@ class Media {
 	this.configureFoxService();
 	this.configureHDEService();
 	this.configureSourceTVService();
+	this.configureSourceAppleService();
   
     return [this.informationService, 
 		this.tvService,
@@ -205,7 +206,8 @@ class Media {
 		this.eService,
 	    this.foxService,
 	    this.HDEService,
-	    this.SourceTVService];
+	    this.SourceTVService,
+	    this.SourceAppleService];
   }
 
   isThisOnSourceApple(next) {
@@ -218,11 +220,11 @@ class Media {
     return next(null);
   }
   
-  isThisOnTVSource(next) {
+  isThisOnSourceTV(next) {
     return this.source === "TVSource";
   }
   
-  changeToTVSource(s, next) {
+  changeToSourceTV(s, next) {
     this.source = "TVSource";
     lirc.send("Source", "KEY_1");  
     return next(null);
