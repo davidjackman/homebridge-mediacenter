@@ -344,7 +344,7 @@ class Media {
   }
   
   isThisOnAnimalPlanet(next) {
-    return next(null, (this.channel === "Animal Planet");
+    return next(null, (this.channel === "Animal Planet"));
   }
   
   changeToAnimalPlanet(s, next) {
