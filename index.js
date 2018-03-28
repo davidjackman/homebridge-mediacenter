@@ -100,6 +100,17 @@ class Media {
       this.NickelodeonService = NickelodeonService;
   }
 
+  configureNickJuniorService() {
+      let NickJuniorService = new Service.Switch("Nick Junior");
+      NickJuniorService.subtype = "Nick Junior"
+      NickJuniorService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToNickJunior.bind(this))
+          .on('get', this.isThisOnNickJunior.bind(this));
+
+      this.NickJuniorService = NickJuniorService;
+  }
+
   getServices() {
     this.configureInformationServices();
 	this.configureTVService();
@@ -108,6 +119,7 @@ class Media {
     this.configureAnimalPlanetService();
 	this.configureDiscoveryService();
 	this.configureNickelodeonService();
+	this.configureNickJuniorService();
   
     return [this.informationService, this.tvService, this.cableService, this.sourceService, this.animalPlanetService, this.discoveryService];
   }
@@ -118,8 +130,21 @@ class Media {
   
   changeToNickelodeon(s, next) {
     this.channel = "Nickelodeon";
-    lirc.send("Cable", "KEY_3");  
-    lirc.send("Cable", "KEY_1");
+    lirc.send("Cable", "KEY_2");  
+    lirc.send("Cable", "KEY_5");
+    lirc.send("Cable", "KEY_8");
+    return next(null);
+  }
+  
+  isThisOnNickJunior(next) {
+    return this.channel === "Nick Junior";
+  }
+  
+  changeToNickJunior(s, next) {
+    this.channel = "Nick Junior";
+    lirc.send("Cable", "KEY_2");  
+    lirc.send("Cable", "KEY_5");
+    lirc.send("Cable", "KEY_7");
     return next(null);
   }
   
