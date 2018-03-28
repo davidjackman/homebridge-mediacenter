@@ -24,7 +24,7 @@ class Media {
     this.cableState = false;
   }
   
-  functionconfigureInformationServices() {
+  function configureInformationServices() {
       let informationService = new Service.AccessoryInformation();
       informationService
         .setCharacteristic(Characteristic.Manufacturer, "David Jackman")
@@ -34,7 +34,7 @@ class Media {
       this.informationService = informationService;
   }
   
-  configureTVService() {
+  function configureTVService() {
       let tvService = new Service.Switch("TV");
       tvService.subtype = "Bravia";
       tvService
@@ -45,7 +45,7 @@ class Media {
       this.tvService = tvService;
   }
 
-  configureCableService() {
+  function configureCableService() {
       let cableService = new Service.Switch("Cable");
       cableService.subtype = "Cable";
       cableService
@@ -56,7 +56,7 @@ class Media {
       this.cableService = cableService;
   }
   
-  configureSourceService() {
+  function configureSourceService() {
       let sourceService = new Service.Switch("Source");
       sourceService.subtype = "TV";
       sourceService
@@ -67,7 +67,7 @@ class Media {
       this.sourceService = sourceService;
   }
   
-  configureAnimalPlanetService() {
+  function configureAnimalPlanetService() {
       let animalPlanetService = new Service.Switch("Animal Planet");
       animalPlanetService.subtype = "AnimalPlanet"
       animalPlanetService
@@ -78,7 +78,7 @@ class Media {
       this.animalPlanetService = animalPlanetService;
   }
   
-  configureDiscoveryService() {
+  function configureDiscoveryService() {
       let discoveryService = new Service.Switch("Discovery");
       discoveryService.subtype = "Discovery"
       discoveryService
