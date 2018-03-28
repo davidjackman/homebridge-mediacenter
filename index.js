@@ -211,21 +211,21 @@ class Media {
   }
 
   isThisOnSourceApple(next) {
-    return next(null, (this.source === "SourceApple"));
+    return next(null, (this.source === "AppleTV"));
   }
   
   changeToSourceApple(s, next) {
-    this.source = "SourceApple";
+    this.source = "AppleTV";
     lirc.send("Source", "KEY_2");  
     return next(null);
   }
   
   isThisOnSourceTV(next) {
-    return next(null, (this.source === "TVSource"));
+    return next(null, (this.source === "TV"));
   }
   
   changeToSourceTV(s, next) {
-    this.source = "TVSource";
+    this.source = "TV";
     lirc.send("Source", "KEY_1");  
     return next(null);
   }
