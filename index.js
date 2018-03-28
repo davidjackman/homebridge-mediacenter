@@ -231,6 +231,8 @@ class Media {
   }
   
   sendKeyForLetter(char) {
+    console.log("Sending " + char);
+	return
     if (char === '0') {
       lirc.send("Cable", "KEY_0");
     } else if (char === '1') {
@@ -255,14 +257,15 @@ class Media {
   }
   
   changeToChannel(channel) {
-    let char = channel.charAt(0);
-    if (char != null) {
-      this.sendKeyForLetter(char);
+    while (channel.length > 0) {}
+      setTimeout(function() {
+        let char = channel.charAt(0);
+        if (char != null) {
+          this.sendKeyForLetter(char);
+        }
+  	    channel = channel.substr(1);
+      }, 200);
     }
-    setTimeout(function() {
-	let substring = channel.substr(1);
-      this.changeToChannel(substring);
-	}, 200);
   }
   
   isThisOnHDE(next) {
