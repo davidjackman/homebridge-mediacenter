@@ -211,7 +211,7 @@ class Media {
   }
 
   isThisOnSourceApple(next) {
-    return this.source === "SourceApple";
+    return next(null, this.source === "SourceApple");
   }
   
   changeToSourceApple(s, next) {
@@ -221,7 +221,7 @@ class Media {
   }
   
   isThisOnSourceTV(next) {
-    return this.source === "TVSource";
+    return next(null, this.source === "TVSource");
   }
   
   changeToSourceTV(s, next) {
@@ -265,7 +265,7 @@ class Media {
   }
   
   isThisOnHDE(next) {
-    return this.channel === "HDE";
+    return next(null, this.channel === "HDE");
   }
   
   changeToHDE(s, next) {
@@ -279,7 +279,7 @@ class Media {
   }
   
   isThisOnComedy(next) {
-    return this.channel === "Comedy";
+    return next(null, this.channel === "Comedy");
   }
   
   changeToComedy(s, next) {
@@ -290,7 +290,7 @@ class Media {
   }
   
   isThisOnFox(next) {
-    return this.channel === "Fox";
+    return next(null, this.channel === "Fox");
   }
   
   changeToFox(s, next) {
@@ -301,7 +301,7 @@ class Media {
   }
   
   isThisOnE(next) {
-    return this.channel === "E";
+    return next(null, this.channel === "E");
   }
   
   changeToE(s, next) {
@@ -312,7 +312,7 @@ class Media {
   }
   
   isThisOnNickelodeon(next) {
-    return this.channel === "Nickelodeon";
+    return next(null, this.channel === "Nickelodeon");
   }
   
   changeToNickelodeon(s, next) {
@@ -324,7 +324,7 @@ class Media {
   }
   
   isThisOnNickJunior(next) {
-    return this.channel === "Nick Junior";
+    return next(null, this.channel === "Nick Junior");
   }
   
   changeToNickJunior(s, next) {
@@ -336,7 +336,7 @@ class Media {
   }
   
   isThisOnDiscovery(next) {
-    return this.channel === "Discovery";
+    return next(null, this.channel === "Discovery");
   }
   
   changeToDiscovery(s, next) {
