@@ -90,25 +90,25 @@ class Media {
   }
 
   configureNickelodeonService() {
-      let NickelodeonService = new Service.Switch("Nickelodeon");
-      NickelodeonService.subtype = "Nickelodeon"
-      NickelodeonService
+      let nickelodeonService = new Service.Switch("Nickelodeon");
+      nickelodeonService.subtype = "Nickelodeon"
+      nickelodeonService
         .getCharacteristic(Characteristic.On)
           .on('set', this.changeToNickelodeon.bind(this))
           .on('get', this.isThisOnNickelodeon.bind(this));
 
-      this.NickelodeonService = NickelodeonService;
+      this.nickelodeonService = nickelodeonService;
   }
 
   configureNickJuniorService() {
-      let NickJuniorService = new Service.Switch("Nick Junior");
-      NickJuniorService.subtype = "Nick Junior"
-      NickJuniorService
+      let nickJuniorService = new Service.Switch("Nick Junior");
+      nickJuniorService.subtype = "Nick Junior"
+      nickJuniorService
         .getCharacteristic(Characteristic.On)
           .on('set', this.changeToNickJunior.bind(this))
           .on('get', this.isThisOnNickJunior.bind(this));
 
-      this.NickJuniorService = NickJuniorService;
+      this.nickJuniorService = nickJuniorService;
   }
 
   getServices() {
@@ -121,7 +121,14 @@ class Media {
 	this.configureNickelodeonService();
 	this.configureNickJuniorService();
   
-    return [this.informationService, this.tvService, this.cableService, this.sourceService, this.animalPlanetService, this.discoveryService];
+    return [this.informationService, 
+		this.tvService,
+		this.cableService, 
+		this.sourceService, 
+		this.animalPlanetService, 
+		this.discoveryService,
+		this.nickelodeonService,
+		this.nickJuniorService];
   }
 
   isThisOnNickelodeon(next) {
