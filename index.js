@@ -265,32 +265,29 @@ class Media {
   }
   
   isThisOnHDE(next) {
-    return next(null, this.channel === "HDE");
+    return next(null, (this.channel === "HDE"));
   }
   
   changeToHDE(s, next) {
     this.channel = "HDE";
 	changeToChannel("1351");
-    // lirc.send("Cable", "KEY_1");
-    // lirc.send("Cable", "KEY_3");
-    // lirc.send("Cable", "KEY_5");
-    // lirc.send("Cable", "KEY_1");
     return next(null);
   }
   
   isThisOnComedy(next) {
-    return next(null, this.channel === "Comedy");
+    return next(null, (this.channel === "Comedy"));
   }
   
   changeToComedy(s, next) {
     this.channel = "Comedy";
-    lirc.send("Cable", "KEY_6");  
-    lirc.send("Cable", "KEY_2");
+	changeToChannel("62");
+    // lirc.send("Cable", "KEY_6");
+    // lirc.send("Cable", "KEY_2");
     return next(null);
   }
   
   isThisOnFox(next) {
-    return next(null, this.channel === "Fox");
+    return next(null, (this.channel === "Fox"));
   }
   
   changeToFox(s, next) {
@@ -301,7 +298,7 @@ class Media {
   }
   
   isThisOnE(next) {
-    return next(null, this.channel === "E");
+    return next(null, (this.channel === "E"));
   }
   
   changeToE(s, next) {
@@ -312,7 +309,7 @@ class Media {
   }
   
   isThisOnNickelodeon(next) {
-    return next(null, this.channel === "Nickelodeon");
+    return next(null, (this.channel === "Nickelodeon"));
   }
   
   changeToNickelodeon(s, next) {
@@ -324,7 +321,7 @@ class Media {
   }
   
   isThisOnNickJunior(next) {
-    return next(null, this.channel === "Nick Junior");
+    return next(null, (this.channel === "Nick Junior"));
   }
   
   changeToNickJunior(s, next) {
@@ -336,7 +333,7 @@ class Media {
   }
   
   isThisOnDiscovery(next) {
-    return next(null, this.channel === "Discovery");
+    return next(null, (this.channel === "Discovery"));
   }
   
   changeToDiscovery(s, next) {
@@ -347,7 +344,7 @@ class Media {
   }
   
   isThisOnAnimalPlanet(next) {
-    return this.channel === "Animal Planet";
+    return next(null, (this.channel === "Animal Planet");
   }
   
   changeToAnimalPlanet(s, next) {
