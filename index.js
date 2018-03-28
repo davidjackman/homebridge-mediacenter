@@ -257,7 +257,7 @@ class Media {
   changeToChannel(channel) {
     let char = channel.charAt(0);
     if (char != null) {
-      //this.sendKeyForLetter(char);
+      this.sendKeyForLetter(char);
     }
     setTimeout(function() {
 	let substring = channel.substr(1);
