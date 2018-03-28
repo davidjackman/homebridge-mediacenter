@@ -111,6 +111,39 @@ class Media {
       this.nickJuniorService = nickJuniorService;
   }
 
+  configureFoxService() {
+      let foxService = new Service.Switch("Fox");
+      foxService.subtype = "Fox"
+      foxService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToFox.bind(this))
+          .on('get', this.isThisOnFox.bind(this));
+
+      this.foxService = foxService;
+  }
+
+  configureEService() {
+      let eService = new Service.Switch("Eeee");
+      eService.subtype = "Eeee"
+      eService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToE.bind(this))
+          .on('get', this.isThisOnE.bind(this));
+
+      this.eService = eService;
+  }
+
+  configureComedyService() {
+      let comedyService = new Service.Switch("Comedy");
+      comedyService.subtype = "Comedy"
+      comedyService
+        .getCharacteristic(Characteristic.On)
+          .on('set', this.changeToComedy.bind(this))
+          .on('get', this.isThisOnComedy.bind(this));
+
+      this.comedyService = comedyService;
+  }
+
   getServices() {
     this.configureInformationServices();
 	this.configureTVService();
@@ -120,6 +153,9 @@ class Media {
 	this.configureDiscoveryService();
 	this.configureNickelodeonService();
 	this.configureNickJuniorService();
+	this.configureComedyService();
+	this.configureEService();
+	this.configureFoxService();
   
     return [this.informationService, 
 		this.tvService,
@@ -128,9 +164,45 @@ class Media {
 		this.animalPlanetService, 
 		this.discoveryService,
 		this.nickelodeonService,
-		this.nickJuniorService];
+		this.nickJuniorService,
+	    this.comedyService,
+		this.eService,
+	    this.foxService];
   }
 
+  isThisOnComedy(next) {
+    return this.channel === "Comedy";
+  }
+  
+  changeToComedy(s, next) {
+    this.channel = "Comedy";
+    lirc.send("Cable", "KEY_6");  
+    lirc.send("Cable", "KEY_2");
+    return next(null);
+  }
+  
+  isThisOnFox(next) {
+    return this.channel === "Fox";
+  }
+  
+  changeToFox(s, next) {
+    this.channel = "Fox";
+    lirc.send("Cable", "KEY_1");  
+    lirc.send("Cable", "KEY_1");
+    return next(null);
+  }
+  
+  isThisOnE(next) {
+    return this.channel === "E";
+  }
+  
+  changeToE(s, next) {
+    this.channel = "E";
+    lirc.send("Cable", "KEY_5");  
+    lirc.send("Cable", "KEY_6");
+    return next(null);
+  }
+  
   isThisOnNickelodeon(next) {
     return this.channel === "Nickelodeon";
   }
