@@ -254,13 +254,14 @@ class Media {
     } 
   }
   
-  changeToChannel(channel) {
+  function changeToChannel(channel) {
     let char = channel.charAt(0);
     if (char != null) {
-      this.sendKeyForLetter(char);
+      sendKeyForLetter(char);
     }
     setTimeout(function() {
-		this.changeToChannel(channel.substr(1));
+		let substring = channel.substr(1);
+		changeToChannel(substring);
 	}, 200);
   }
   
@@ -270,7 +271,7 @@ class Media {
   
   changeToHDE(s, next) {
     this.channel = "HDE";
-	this.changeToChannel("1351");
+	changeToChannel("1351");
     return next(null);
   }
   
@@ -280,7 +281,7 @@ class Media {
   
   changeToComedy(s, next) {
     this.channel = "Comedy";
-	this.changeToChannel("62");
+	changeToChannel("62");
     // lirc.send("Cable", "KEY_6");
     // lirc.send("Cable", "KEY_2");
     return next(null);
