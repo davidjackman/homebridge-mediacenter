@@ -270,7 +270,7 @@ class Media {
   
   changeToHDE(s, next) {
     this.channel = "HDE";
-	changeToChannel("1351");
+	this.changeToChannel("1351");
     return next(null);
   }
   
@@ -280,7 +280,7 @@ class Media {
   
   changeToComedy(s, next) {
     this.channel = "Comedy";
-	changeToChannel("62");
+	this.changeToChannel("62");
     // lirc.send("Cable", "KEY_6");
     // lirc.send("Cable", "KEY_2");
     return next(null);
