@@ -22,6 +22,7 @@ class Media {
     this.log = log;
     this.tvState = false;
     this.cableState = false;
+	this.channel = "None";
   }
   
   configureInformationServices() {
@@ -188,7 +189,7 @@ class Media {
   changeToFox(s, next) {
     this.channel = "Fox";
     lirc.send("Cable", "KEY_1");  
-    lirc.send("Cable", "KEY_1");
+    lirc.send("Cable", "KEY_0");
     return next(null);
   }
   
