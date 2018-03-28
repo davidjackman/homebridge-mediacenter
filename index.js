@@ -68,9 +68,30 @@ class Media {
 
     this.animalPlanetService = animalPlanetService;
   
-    return [informationService, tvService, cableService, sourceService, animalPlanetService];
+    let discoveryService = new Service.Switch("Discovery");
+    discoveryService.subtype = "Discovery"
+    discoveryService
+      .getCharacteristic(Characteristic.On)
+        .on('set', this.changeToDiscovery.bind(this))
+        .on('get', this.isThisOnDiscovery.bind(this));
+
+    this.discoveryService = discoveryService;
+  
+  
+    return [informationService, tvService, cableService, sourceService, animalPlanetService, discoveryService];
   }
 
+  isThisOnDiscovery(next) {
+    return this.channel === "Discovery";
+  }
+  
+  changeToDiscovery(s, next) {
+    this.channel = "Discovery";
+    lirc.send("Cable", "KEY_3");  
+    lirc.send("Cable", "KEY_1");
+    return next(null);
+  }
+  
   isThisOnAnimalPlanet(next) {
     return this.channel === "Animal Planet";
   }
