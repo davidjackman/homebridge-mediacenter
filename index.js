@@ -211,7 +211,7 @@ class Media {
   }
 
   isThisOnSourceApple(next) {
-    return next(null, this.source === "SourceApple");
+    return next(null, (this.source === "SourceApple"));
   }
   
   changeToSourceApple(s, next) {
