@@ -103,16 +103,6 @@ class Media {
     return next(null);
   }
   
-  changeToChannelByName(channel, next) {
-    if (channel === "RED") {
-      lirc.send("Cable", "KEY_1");
-    }  
-  }
-   
-  currentChannelName(next) {
-    return next(null, this.channel);
-  }
-  
   getTVSourceCharacteristic(next) {
     return next(null, false);
   }
@@ -127,7 +117,7 @@ class Media {
 
   getTVOnCharacteristic(next) {
     this.log("Current TV State: ", !this.tvState);
-    return next(null, !this.tvState);
+    return next(null, this.tvState);
   }
 
   setTVOnCharacteristic(state, next) {
@@ -144,17 +134,18 @@ class Media {
         }, 400);
       }, 2000)
     }
+	
+	lirc.send("Source", "KEY_1");
   
     return next(null);
   }
   
   getCableOnCharacteristic(next) {
-    return next(null, !this.cableState);
+    return next(null, this.cableState);
   }
 
   setCableOnCharacteristic(state, next) {
-    
-    this.cableState = !state;
+    this.cableState = state;
     lirc.send("Cable", "KEY_POWER");
     return next(null);
   }
